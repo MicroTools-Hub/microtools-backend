@@ -1,0 +1,22 @@
+{
+  "name": "microtools-backend",
+  "version": "1.0.0",
+  "description": "Backend for MicroTools Hub (YouTube, compression, converter, payments)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "archiver": "^7.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.19.0",
+    "multer": "^1.4.5-lts.1",
+    "razorpay": "^2.9.3",
+    "sharp": "^0.33.2",
+    "ytdl-core": "^4.11.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
