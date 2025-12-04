@@ -9,11 +9,14 @@
   },
   "dependencies": {
     "archiver": "^7.0.1",
+    "axios": "^1.13.2",
+    "cheerio": "^1.1.2",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "express": "^4.22.1",
     "multer": "^1.4.5-lts.1",
-    "razorpay": "^2.9.3",
+    "qrcode": "^1.5.4",
+    "razorpay": "^2.9.6",
     "sharp": "^0.33.5",
     "ytdl-core": "^4.11.5"
   },
