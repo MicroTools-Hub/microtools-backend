@@ -282,20 +282,45 @@ app.post("/api/download/facebook", async (req, res) => {
 });
 
 // ---------------- TWITTER DOWNLOADER ----------------
+import { exec } from "child_process";
+import fs from "fs";
+import path from "path";
+
 app.post("/api/download/twitter", async (req, res) => {
   try {
     const { url } = req.body;
-    const api = `https://twdown.app/api/v1/?url=${url}`;
-    const { data } = await axios.get(api);
 
-    res.json({
-      success: true,
-      links: data.links
+    // ✅ Validate input
+    if (!url || !url.includes("twitter.com") && !url.includes("x.com")) {
+      return res.status(400).json({ error: "Invalid Twitter/X URL" });
+    }
+
+    // ✅ Temp output path
+    const id = Date.now();
+    const outputPath = path.join("downloads", `twitter-${id}.mp4`);
+
+    // ✅ yt-dlp command
+    const cmd = `yt-dlp -f mp4 -o "${outputPath}" "${url}"`;
+
+    exec(cmd, (err) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Failed to download video" });
+      }
+
+      // ✅ Send file
+      res.download(outputPath, () => {
+        // cleanup after send
+        fs.unlink(outputPath, () => {});
+      });
     });
-  } catch {
-    res.json({ error: "Twitter download failed" });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Twitter download failed" });
   }
 });
+
 
 
 // ======================================================
